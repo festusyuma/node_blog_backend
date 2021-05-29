@@ -1,2 +1,2 @@
-# node_blog_backend
+# Node Blog Backend
 npm install
