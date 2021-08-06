@@ -1,5 +1,5 @@
 import sq from "sequelize";
-const { Sequelize, DataTypes, Model, Op } = sq
+const { Sequelize } = sq
 
 const db = new Sequelize('node_blog', 'root', '12345678', {
     host: 'localhost',
@@ -8,4 +8,4 @@ const db = new Sequelize('node_blog', 'root', '12345678', {
     freezeTableName: true,
 });
 
-export default db
+module.exports = db
