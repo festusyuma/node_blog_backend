@@ -1,6 +1,6 @@
 const express = require('express')
-const User = require('../Model/User')
-const AuthService = require('../Service/AuthService')
+const User = require('../model/User')
+const AuthService = require('../service/AuthService')
 
 const router = express.Router()
 const service = new AuthService()
