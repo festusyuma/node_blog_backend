@@ -18,6 +18,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/api/auth', authRoutes)
 
-app.listen(PORT, () => {
-    console.log(`Server started on port: ${PORT}`)
+const server = app.listen(PORT, () => {
+    const host = server.address().address
+    console.log(host)
+
+    console.log(`Server started on port: /${PORT}`)
 })
