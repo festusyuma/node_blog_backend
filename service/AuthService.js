@@ -1,4 +1,4 @@
-import Response from '../tools/ServiceResponse.js'
+const Response = require('../tools/ServiceResponse')
 
 class AuthService {
 
@@ -14,4 +14,4 @@ class AuthService {
     }
 }
 
-export default AuthService
+module.exports = AuthService

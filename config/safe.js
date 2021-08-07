@@ -1,3 +1,4 @@
+/*
 import bcrypt from "bcrypt";
 import db from "./db";
 import sq from "sequelize";
@@ -19,15 +20,16 @@ User.init({
             this.setDataValue('password', hashedPassword)
         },
     },
+
     // Create composite index
-    /* uniqueOne: {
+     uniqueOne: {
         type: DataTypes.STRING,
         unique: 'compositeIndex',
     },
     uniqueTwo: {
         type: DataTypes.INTEGER,
         unique: 'compositeIndex',
-    }, */
+    },
 }, {
     sequelize: db,
     modelName: 'User',
@@ -261,7 +263,6 @@ if (festus !== null) {
     console.log('Saved user to festus')
 }
 
-/*
 const newCustomer = Customer.build({
     firstName: 'Festus',
     lastName: 'Agboma'
@@ -305,4 +306,5 @@ try {
 
 newCustomer.destroy().then(() => {
     console.log('record deleted')
-})*/
+})
+*/

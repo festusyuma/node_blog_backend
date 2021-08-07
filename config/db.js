@@ -12,11 +12,4 @@ const db = new Sequelize(dbName, username, password, {
     freezeTableName: true,
 });
 
-try {
-    await db.authenticate()
-    console.log('connection established')
-} catch(err) {
-    console.error('Unable to connect to the database:', err);
-}
-
 module.exports = db

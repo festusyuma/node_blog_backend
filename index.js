@@ -4,7 +4,7 @@ const sq = require('sequelize')
 const db = require('./config/db')
 
 // Routes
-import authRoutes from './route/auth.js'
+const authRoutes = require('./route/auth')
 
 const app = express()
 const PORT = process.env.PORT || 5000

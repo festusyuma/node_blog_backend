@@ -1,8 +1,8 @@
-import bcrypt from "bcrypt";
-import db from "../config/db.js";
-import sq from "sequelize";
+const bcrypt = require('bcrypt')
+const db = require('../config/db')
+const { DataTypes, Model } = require('sequelize')
 
-const { DataTypes, Model } = sq
+
 class User extends Model {}
 User.init({
     username: {

@@ -1,6 +1,6 @@
-import express from 'express'
-import User from '../Model/User.js'
-import AuthService from '../Service/AuthService.js'
+const express = require('express')
+const User = require('../Model/User')
+const AuthService = require('../Service/AuthService')
 
 const router = express.Router()
 const service = new AuthService()
