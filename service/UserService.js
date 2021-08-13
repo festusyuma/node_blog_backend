@@ -2,6 +2,10 @@ const response = require('../tools/ServiceResponse')
 const db = require('../models/index')
 
 const userService = {
+    async findOneByEmail(email) {
+
+    },
+
     async save(data) {
 
         try {
@@ -11,10 +15,10 @@ const userService = {
                 email: data.email
             })
 
-            return response(200, 'User created', user)
+            return response.success('User created', user)
         } catch (e) {
             console.log(e)
-            return response(400, 'internal server error')
+            return response.serverError()
         }
     }
 }

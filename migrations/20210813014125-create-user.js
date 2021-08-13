@@ -9,14 +9,15 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      firstName: {
-        type: Sequelize.STRING
-      },
-      lastName: {
-        type: Sequelize.STRING
-      },
       email: {
+        type: Sequelize.STRING,
+        unique: true,
+      },
+      name: {
         type: Sequelize.STRING
+      },
+      password: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +29,7 @@ module.exports = {
       }
     });
   },
+
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Users');
   }

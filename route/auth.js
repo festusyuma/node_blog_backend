@@ -3,9 +3,14 @@ const router = express.Router()
 
 const service = require('../service/AuthService')
 
-router.post('/login', (req, res) => {
-    const { status, message, data } = service.login(req.body)
-    return res.status(status).json({ message, data })
+router.post('/register', async (req, res) => {
+    const { status, message, data } = await service.register(req.body)
+    return res.status(status).send({ message, data })
+})
+
+router.post('/login', async (req, res) => {
+    const { status, message, data } = await service.login(req.body)
+    return res.status(status).send({ message, data })
 })
 
 module.exports = router
