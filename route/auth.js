@@ -1,9 +1,7 @@
 const express = require('express')
-const User = require('../model/User')
-const AuthService = require('../service/AuthService')
-
 const router = express.Router()
-const service = new AuthService()
+
+const service = require('../service/AuthService')
 
 router.post('/login', (req, res) => {
     const { status, message, data } = service.login(req.body)

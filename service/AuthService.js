@@ -1,17 +1,11 @@
-const Response = require('../tools/ServiceResponse')
+const response = require('../tools/ServiceResponse')
 
-class AuthService {
-
+const AuthService = {
     login(user) {
         const username = user.username
         const password = user.password
-
-        return new Response(
-            200,
-            'Login successful',
-            'ekyyykkdskksdkdsksjkds'
-        )
-    }
+        return response(200, 'Login successful', 'ekyyykkdskksdkdsksjkds')
+    },
 }
 
 module.exports = AuthService

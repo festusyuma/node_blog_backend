@@ -1,10 +1,9 @@
-class ServiceResponse {
-
-    constructor(status, message, data) {
-        this.status = status
-        this.message = message
-        this.data = data
+const serviceResponse = (status, message, data) => {
+    return {
+        status,
+        message,
+        data
     }
 }
 
-module.exports = ServiceResponse
+module.exports = serviceResponse
