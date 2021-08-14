@@ -8,7 +8,7 @@ function verify(token) {
   try {
     return jwt.verify(token, process.env.JWT_SECRET)
   } catch (e) {
-    console.log(e)
+    return null
   }
 }
 

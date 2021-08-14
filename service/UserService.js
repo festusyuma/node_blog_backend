@@ -1,4 +1,4 @@
-const response = require('../tools/serviceResponse')
+const response = require('../util/serviceResponse')
 const db = require('../models/index')
 
 const userService = {

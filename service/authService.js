@@ -1,10 +1,10 @@
 const db = require('../models/index')
-const response = require('../tools/serviceResponse')
+const response = require('../util/serviceResponse')
 const userRepo = require('../repo/user')
 const bcrypt = require("bcrypt");
-const jwt = require("../tools/jwt");
+const jwt = require("../util/jwt");
 
-const AuthService = {
+const authService = {
     async register(data) {
         if (!data.email) return response.badRequest('email is required')
         if (!data.password) return response.badRequest('password is required')
@@ -46,22 +46,9 @@ const AuthService = {
         }
     },
 
-    async getUser(data) {
-        const token = data.token // todo use header
-
-        try {
-            const res = jwt.verify(token)
-            if (res) {
-                const user = await userRepo.findOneByEmail(res.data.email)
-                if (user) return response.success('successful', user)
-            }
-
-            return response.unauthorized('Invalid token')
-        } catch (e) {
-            console.log(e)
-            return response.serverError()
-        }
+    async getUser(user) {
+        return response.success('Successful', user)
     },
 }
 
-module.exports = AuthService
+module.exports = authService

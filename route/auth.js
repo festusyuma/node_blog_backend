@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const auth = require('../middleware/auth')
 
-const service = require('../service/AuthService')
+const service = require('../service/authService')
 
 router.post('/register', async (req, res) => {
     const { status, message, data } = await service.register(req.body)
@@ -13,8 +14,8 @@ router.post('/login', async (req, res) => {
     return res.status(status).send({ message, data })
 })
 
-router.post('/verify', async (req, res) => {
-    const { status, message, data } = await service.getUser(req.body)
+router.post('/verify', auth, async (req, res) => {
+    const { status, message, data } = await service.getUser(req.user)
     return res.status(status).send({ message, data })
 })
 
