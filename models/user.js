@@ -34,6 +34,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
+      defaultScope: {
+        attributes: { exclude: ['password'] },
+      },
+      scopes: {
+        withPassword: {
+          attributes: { include: ['password'] }
+        }
+      },
       modelName: 'User',
     }
   );

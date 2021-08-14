@@ -13,4 +13,9 @@ router.post('/login', async (req, res) => {
     return res.status(status).send({ message, data })
 })
 
+router.post('/verify', async (req, res) => {
+    const { status, message, data } = await service.getUser(req.body)
+    return res.status(status).send({ message, data })
+})
+
 module.exports = router

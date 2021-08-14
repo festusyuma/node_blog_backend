@@ -1,7 +1,8 @@
 const db = require('../models/index')
-const response = require('../tools/ServiceResponse')
+const response = require('../tools/serviceResponse')
 const userRepo = require('../repo/user')
 const bcrypt = require("bcrypt");
+const jwt = require("../tools/jwt");
 
 const AuthService = {
     async register(data) {
@@ -26,15 +27,36 @@ const AuthService = {
 
     async login(data) {
         try {
-            const user = await userRepo.findOneByEmail(data.email)
+            let user = await userRepo.findOneByEmailWithPassword(data.email)
             if (user) {
                 const match = await bcrypt.compare(data.password, user.password);
                 if (match) {
-                    return response.success('Login successful', { name: 'festus' })
+                    user = user.toJSON()
+                    delete user.password
+
+                    const token = jwt.generate(user)
+                    return response.success('Login successful', { user, token })
                 }
             }
 
             return response.unauthorized('email or password is incorrect')
+        } catch (e) {
+            console.log(e)
+            return response.serverError()
+        }
+    },
+
+    async getUser(data) {
+        const token = data.token // todo use header
+
+        try {
+            const res = jwt.verify(token)
+            if (res) {
+                const user = await userRepo.findOneByEmail(res.data.email)
+                if (user) return response.success('successful', user)
+            }
+
+            return response.unauthorized('Invalid token')
         } catch (e) {
             console.log(e)
             return response.serverError()
