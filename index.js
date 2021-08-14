@@ -3,7 +3,6 @@ const express = require('express')
 
 // Routes
 const indexRoutes = require('./route/index')
-const userRoutes = require('./route/user')
 const authRoutes = require('./route/auth')
 const postsRoutes = require('./route/post')
 
@@ -19,7 +18,6 @@ const PORT = process.env.PORT || 5000
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/', indexRoutes)
-app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/post', postsRoutes)
 

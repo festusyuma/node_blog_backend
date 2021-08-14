@@ -21,6 +21,10 @@ const serviceResponse = {
         return build(401, message)
     },
 
+    forbidden(message = 'You do not have permission') {
+        return build(403, message)
+    },
+
     serverError() {
         return build(500, 'An internal server error occurred')
     },
