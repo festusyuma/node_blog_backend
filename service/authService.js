@@ -20,8 +20,7 @@ const authService = {
             const user = await db['User'].create(data)
             return response.success('Registration successful', user)
         } catch (e) {
-            console.log(e)
-            return response.serverError()
+            return response.serverError(e)
         }
     },
 
@@ -41,8 +40,7 @@ const authService = {
 
             return response.unauthorized('email or password is incorrect')
         } catch (e) {
-            console.log(e)
-            return response.serverError()
+            return response.serverError(e)
         }
     },
 

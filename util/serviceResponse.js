@@ -25,7 +25,8 @@ const serviceResponse = {
         return build(403, message)
     },
 
-    serverError() {
+    serverError(e = null) {
+        console.log(e)
         return build(500, 'An internal server error occurred')
     },
 }

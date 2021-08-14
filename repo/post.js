@@ -1,8 +1,8 @@
 const db = require('../models/index')
 
 module.exports = {
-  async findByPk(id) {
-
+  async findById(id) {
+    return db['Post'].findByPk(id)
   },
 
   async addLike(post, user) {
@@ -25,7 +25,7 @@ module.exports = {
     }
   },
 
-  async findByPostAndUser(post, user) {
+  async getUserPostLike(post, user) {
     return await db['PostLike'].findOne({ where: { PostId: post.id, UserId: user.id } })
   },
 }

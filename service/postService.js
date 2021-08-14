@@ -3,25 +3,33 @@ const response = require('../util/serviceResponse')
 const postRepo = require('../repo/post')
 
 const postService = {
-  async getPosts(page = 0, perPage = 20) {
+  async getPosts(page = 0, perPage = 20, user) {
     try {
-      const posts = await db['Post'].findAll()
-      if (posts) return response.success('Posts fetched successfully', posts)
-      else return response.badRequest('Invalid post id')
+      let posts = await db['Post'].findAll()
+      if (posts) {
+        posts = posts.map(post => post.toJSON())
+        for (const post of posts) post.liked = !! await postRepo.getUserPostLike(post, user)
+
+        return response.success('Posts fetched successfully', await posts)
+      } else return response.badRequest('Invalid post id')
     } catch (e) {
-      console.log(e)
-      return response.serverError()
+      return response.serverError(e)
     }
   },
 
-  async getPost(id) {
+  async getPost(id, user) {
     try {
-      const post = await db['Post'].findByPk(id)
-      if (post) return response.success('Post fetched successfully', post)
-      else return response.badRequest('Invalid post id')
+      let post = await postRepo.findById(id)
+
+      if (post) {
+        const likedPost = await postRepo.getUserPostLike(post, user)
+        post = post.toJSON()
+        post.liked = !!likedPost
+
+        return response.success('Post fetched successfully', post)
+      } else return response.badRequest('Invalid post id')
     } catch (e) {
-      console.log(e)
-      return response.serverError()
+      return response.serverError(e)
     }
   },
 
@@ -32,14 +40,13 @@ const postService = {
       const post = await db['Post'].create({ post: data.post, UserId: user.id })
       return response.success('Post created successfully', post)
     } catch (e) {
-      console.log(e)
-      return response.serverError()
+      return response.serverError(e)
     }
   },
 
   async deletePost(id, user) {
     try {
-      const post = await db['Post'].findByPk(id)
+      const post = await postRepo.findById(id)
       if (post) {
         if (post.UserId === user.id) {
           post.deleted = true
@@ -49,16 +56,15 @@ const postService = {
         } else return response.forbidden('You do not own this post')
       } else return response.badRequest('Invalid post id')
     } catch (e) {
-      console.log(e)
-      return response.serverError()
+      return response.serverError(e)
     }
   },
 
   async likePost(id, user) {
     try {
-      const post = await db['Post'].findByPk(id)
+      const post = await postRepo.findById(id)
       if (post) {
-        let postLike = await postRepo.findByPostAndUser(post, user)
+        let postLike = await postRepo.getUserPostLike(post, user)
 
         if (!postLike) {
           await postRepo.addLike(post, user)
@@ -70,8 +76,7 @@ const postService = {
 
       } else return response.badRequest('Invalid post id')
     } catch (e) {
-      console.log(e)
-      return response.serverError()
+      return response.serverError(e)
     }
   },
 }
