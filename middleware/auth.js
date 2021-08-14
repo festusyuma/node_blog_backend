@@ -3,6 +3,8 @@ const jwt = require("../util/jwt");
 const userRepo = require("../repo/user");
 
 module.exports = async (req, res, next) => {
+  if (!req.get('Authorization')) return res.status(401).send({ message: 'Unauthorized' })
+
   const bearer = req.get('Authorization').split(' ');
   if (bearer.length >= 2 && bearer[0].toLowerCase() === 'bearer') {
     const token = bearer[1]
