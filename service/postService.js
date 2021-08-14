@@ -5,10 +5,15 @@ const postRepo = require('../repo/post')
 const postService = {
   async getPosts(page = 0, perPage = 20, user) {
     try {
-      let posts = await db['Post'].findAll()
+      let posts = await postRepo.fetchAllWithLikes(page, perPage)
+
       if (posts) {
-        posts = posts.map(post => post.toJSON())
-        for (const post of posts) post.liked = !! await postRepo.getUserPostLike(post, user)
+        posts = posts.map(post => {
+          post = post.toJSON()
+          post.liked = !! post.PostLikes.find(pl => pl.UserId === user.id)
+          delete post.PostLikes
+          return post
+        })
 
         return response.success('Posts fetched successfully', await posts)
       } else return response.badRequest('Invalid post id')
@@ -19,12 +24,11 @@ const postService = {
 
   async getPost(id, user) {
     try {
-      let post = await postRepo.findById(id)
+      let post = await postRepo.findByIdWithLikes(id)
 
       if (post) {
-        const likedPost = await postRepo.getUserPostLike(post, user)
         post = post.toJSON()
-        post.liked = !!likedPost
+        post.liked = !! post.PostLikes.find(pl => pl.User.id === user.id)
 
         return response.success('Post fetched successfully', post)
       } else return response.badRequest('Invalid post id')

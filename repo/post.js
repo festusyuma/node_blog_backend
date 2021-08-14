@@ -5,6 +5,25 @@ module.exports = {
     return db['Post'].findByPk(id)
   },
 
+  async findByIdWithLikes(id) {
+    return await db['Post'].findByPk(id, {
+      include: {
+        model: db['PostLike'],
+        attributes: ['createdAt'],
+        include: db['User']
+      },
+    })
+  },
+
+  async fetchAllWithLikes() {
+    return await db['Post'].findAll({
+      include: {
+        model: db['PostLike'],
+        attributes: ['UserId'],
+      },
+    })
+  },
+
   async addLike(post, user) {
     try {
       await db['PostLike'].create({ PostId: post.id, UserId: user.id })
