@@ -23,4 +23,9 @@ router.delete('/:id', auth, async (req, res) => {
   return res.status(status).send({ message, data })
 })
 
+router.get('/:id/like', auth, async (req, res) => {
+  const { status, message, data } = await service.likePost(req.params.id, req.user)
+  return res.status(status).send({ message, data })
+})
+
 module.exports = router

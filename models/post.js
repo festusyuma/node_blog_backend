@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static associate(models) {
-      Post.belongsTo(models['User'], {foreignKey: 'userId'});
+      Post.belongsTo(models['User']);
       Post.hasMany(models['PostLike']);
       Post.hasMany(models['Comment']);
     }
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      userId: {
+      UserId: {
         allowNull: false,
         type: DataTypes.UUID,
         references: {
@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       defaultScope: {
         where: { deleted: false },
+        include: 'User',
       },
       modelName: 'Post',
     }
