@@ -4,7 +4,7 @@ const auth = require('../middleware/auth')
 const service = require('../service/postService')
 
 router.get('/', auth, async (req, res) => {
-  const { status, message, data } = await service.getPosts(req.params.page, req.params.perPage, req.user)
+  const { status, message, data } = await service.getPosts(req.query.page, req.query.perPage, req.user)
   return res.status(status).send({ message, data })
 })
 

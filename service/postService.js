@@ -3,7 +3,7 @@ const response = require('../util/serviceResponse')
 const postRepo = require('../repo/post')
 
 const postService = {
-  async getPosts(page = 0, perPage = 20, user) {
+  async getPosts(page = 1, perPage = 20, user) {
     try {
       let posts = await postRepo.fetchAllWithLikes(page, perPage)
 
@@ -15,7 +15,11 @@ const postService = {
           return post
         })
 
-        return response.success('Posts fetched successfully', await posts)
+        const totalItems = await postRepo.countAll()
+        const totalPages = Math.ceil(totalItems / perPage)
+        const pagination = { page, perPage, totalPages, totalItems }
+
+        return response.success('Posts fetched successfully', { posts, pagination })
       } else return response.badRequest('Invalid post id')
     } catch (e) {
       return response.serverError(e)

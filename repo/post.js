@@ -15,13 +15,22 @@ module.exports = {
     })
   },
 
-  async fetchAllWithLikes() {
-    return await db['Post'].findAll({
+  async fetchAllWithLikes(page, perPage) {
+    return await db.Post.findAll({
       include: {
         model: db['PostLike'],
         attributes: ['UserId'],
       },
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      offset: (page - 1) * perPage,
+      limit: perPage
     })
+  },
+
+  async countAll() {
+    return await db.Post.count()
   },
 
   async addLike(post, user) {
