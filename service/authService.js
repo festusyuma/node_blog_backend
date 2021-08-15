@@ -17,7 +17,8 @@ const authService = {
             const existingUser = await userRepo.findOneByEmail(data.email)
             if (existingUser) return response.badRequest('User with email already exist')
 
-            const user = await db['User'].create(data)
+            const userReq = { email: data.email, password: data.password, name: data.name }
+            const user = await db['User'].create(userReq)
             return response.success('Registration successful', user)
         } catch (e) {
             return response.serverError(e)
