@@ -5,7 +5,9 @@ const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // define association here
+      User.hasMany(models['Post']);
+      User.hasMany(models['PostLike']);
+      User.hasMany(models['Comment']);
     }
   }
 

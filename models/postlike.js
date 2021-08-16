@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   PostLike.init({
+    id: {
+      allowNull: false,
+      autoIncrement: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+    },
     PostId: {
       allowNull: false,
       type: DataTypes.UUID,

@@ -10,14 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  Post.init(
-    {
+  Post.init({
       id: {
-        allowNull: false,
-        autoIncrement: false,
-        primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+          allowNull: false,
+          autoIncrement: false,
+          primaryKey: true,
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.UUIDV4,
       },
       post: DataTypes.STRING,
       totalLikes: {
