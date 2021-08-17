@@ -3,6 +3,7 @@ const response = require('../util/serviceResponse')
 const userRepo = require('../repo/user')
 const bcrypt = require("bcrypt");
 const jwt = require("../util/jwt");
+const mailService = require('./mailService')
 
 const authService = {
     async register(data) {
@@ -19,6 +20,13 @@ const authService = {
 
             const userReq = { email: data.email, password: data.password, name: data.name }
             const user = await db['User'].create(userReq)
+
+            try {
+                await mailService.send(user.email)
+            } catch (e) {
+                console.log(e)
+            }
+
             return response.success('Registration successful', user)
         } catch (e) {
             return response.serverError(e)
