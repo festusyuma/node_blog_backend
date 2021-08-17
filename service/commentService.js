@@ -6,6 +6,7 @@ const commentService = {
 
   async addComment(id, data, user) {
     if (!data.comment || data.comment === '') return response.badRequest('Comment is required')
+    if (data.comment.length > 500) return response.badRequest('Maximum length exceeded')
     if (!id) return response.badRequest('Invalid post id')
 
     try {

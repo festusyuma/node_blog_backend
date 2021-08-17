@@ -10,7 +10,7 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       post: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(500)
       },
       totalLikes: {
         type: Sequelize.INTEGER,

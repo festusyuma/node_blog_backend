@@ -43,6 +43,7 @@ const postService = {
 
   async addPost(data, user) {
     if (!data.post || data.post === '') return response.badRequest('Post is required')
+    if (data.post.length > 500) return response.badRequest('Maximum length exceeded')
 
     try {
       const post = await db.Post.create({ post: data.post, UserId: user.id })

@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      post: DataTypes.STRING,
+      post: DataTypes.STRING(500),
       totalLikes: {
         type: DataTypes.INTEGER,
         defaultValue: 0,

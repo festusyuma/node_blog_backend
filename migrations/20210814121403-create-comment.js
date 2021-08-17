@@ -10,7 +10,7 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       comment: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(500)
       },
       PostId: {
         allowNull: false,

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
-    comment: DataTypes.STRING,
+    comment: DataTypes.STRING(500),
     PostId: {
       allowNull: false,
       type: DataTypes.UUID,
