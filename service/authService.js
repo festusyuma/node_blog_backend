@@ -4,6 +4,7 @@ const userRepo = require('../repo/user')
 const bcrypt = require("bcrypt");
 const jwt = require("../util/jwt");
 const mailService = require('./mailService')
+const jwtService = require('./jwtService')
 
 const authService = {
     async register(data) {
@@ -43,7 +44,12 @@ const authService = {
                     delete user.password
 
                     const token = jwt.generate(user)
-                    return response.success('Login successful', { user, token })
+                    try {
+                        await jwtService.saveJwt(token, user.id)
+                        return response.success('Login successful', { user, token })
+                    } catch (e) {
+                        return response.serverError(e)
+                    }
                 }
             }
 

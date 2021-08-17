@@ -1,5 +1,6 @@
 const response = require('../util/serviceResponse')
 const jwt = require("../util/jwt");
+const jwtService = require("../service/jwtService");
 const userRepo = require("../repo/user");
 
 module.exports = async (req, res, next) => {
@@ -13,7 +14,8 @@ module.exports = async (req, res, next) => {
       const jwtRes = jwt.verify(token)
       if (jwtRes) {
         const user = await userRepo.findOneByEmail(jwtRes.data.email)
-        if (user) {
+        const found = await jwtService.retrieveJwt(token, user.id)
+        if (user && found) {
           req.user = user
           return next()
         }
