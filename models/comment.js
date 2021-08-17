@@ -39,9 +39,16 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'
     },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   }, {
     sequelize,
     modelName: 'Comment',
+    defaultScope: {
+      where: { deleted: false },
+    },
   });
   return Comment;
 };

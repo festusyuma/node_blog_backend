@@ -42,10 +42,10 @@ const postService = {
   },
 
   async addPost(data, user) {
-    if (!data.post) return response.badRequest('Post is required')
+    if (!data.post || data.post === '') return response.badRequest('Post is required')
 
     try {
-      const post = await db['Post'].create({ post: data.post, UserId: user.id })
+      const post = await db.Post.create({ post: data.post, UserId: user.id })
       return response.success('Post created successfully', post)
     } catch (e) {
       return response.serverError(e)

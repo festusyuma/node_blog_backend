@@ -16,6 +16,7 @@ module.exports = {
         {
           model: db.PostLike,
           attributes: ['createdAt'],
+          required: false,
           include: {
             model: db.User,
             attributes: ['id', 'name']
@@ -24,6 +25,7 @@ module.exports = {
         {
           model: db.Comment,
           attributes: ['comment', 'createdAt'],
+          required: false,
           include: {
             model: db.User,
             attributes: ['id', 'name']
