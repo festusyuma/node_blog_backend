@@ -8,8 +8,8 @@ const mailService = {
       port: 2525,
       secure: false,
       auth: {
-        user: process.env.HOTMAIL_USERNAME,
-        pass: process.env.HOTMAIL_PASSWORD,
+        user: process.env.SMTP_USERNAME,
+        pass: process.env.SMTP_PASSWORD,
       },
     });
 
