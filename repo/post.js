@@ -40,7 +40,7 @@ module.exports = {
       attributes: { exclude: 'UserId' },
       include: [
         { model: db.PostLike, attributes: ['UserId'] },
-        { model: db.User, attributes: ['name'] },
+        { model: db.User, attributes: ['id', 'name'] },
       ],
       order: [
         ['createdAt', 'DESC']
