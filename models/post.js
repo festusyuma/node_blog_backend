@@ -1,4 +1,5 @@
 'use strict';
+const db = require('./index');
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
@@ -12,11 +13,11 @@ module.exports = (sequelize, DataTypes) => {
 
   Post.init({
       id: {
-          allowNull: false,
-          autoIncrement: false,
-          primaryKey: true,
-          type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        autoIncrement: false,
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
       },
       post: DataTypes.STRING,
       totalLikes: {
@@ -46,7 +47,6 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       defaultScope: {
         where: { deleted: false },
-        include: 'User',
       },
       modelName: 'Post',
     }

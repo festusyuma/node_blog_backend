@@ -6,21 +6,40 @@ module.exports = {
   },
 
   async findByIdWithLikes(id) {
-    return await db['Post'].findByPk(id, {
-      include: {
-        model: db['PostLike'],
-        attributes: ['createdAt'],
-        include: db['User']
-      },
+    return await db.Post.findByPk(id, {
+      attributes: { exclude: 'UserId' },
+      include: [
+        {
+          model: db.User,
+          attributes: ['id', 'name'],
+        },
+        {
+          model: db.PostLike,
+          attributes: ['createdAt'],
+          include: {
+            model: db.User,
+            attributes: ['id', 'name']
+          }
+        },
+        {
+          model: db.Comment,
+          attributes: ['comment', 'createdAt'],
+          include: {
+            model: db.User,
+            attributes: ['id', 'name']
+          }
+        }
+      ]
     })
   },
 
   async fetchAllWithLikes(page, perPage) {
     return await db.Post.findAll({
-      include: {
-        model: db['PostLike'],
-        attributes: ['UserId'],
-      },
+      attributes: { exclude: 'UserId' },
+      include: [
+        { model: db.PostLike, attributes: ['UserId'] },
+        { model: db.User, attributes: ['name'] },
+      ],
       order: [
         ['createdAt', 'DESC']
       ],
