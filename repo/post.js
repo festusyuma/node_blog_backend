@@ -29,7 +29,10 @@ module.exports = {
           include: {
             model: db.User,
             attributes: ['id', 'name']
-          }
+          },
+          order: [
+            ['createdAt', 'DESC']
+          ],
         }
       ]
     })
