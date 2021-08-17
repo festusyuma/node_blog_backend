@@ -24,7 +24,7 @@ module.exports = {
         },
         {
           model: db.Comment,
-          attributes: ['comment', 'createdAt'],
+          attributes: ['id', 'comment', 'createdAt'],
           required: false,
           include: {
             model: db.User,
