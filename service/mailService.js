@@ -3,21 +3,19 @@ const nodemailer = require("nodemailer");
 
 const mailService = {
   async send(to, ) {
-    let testAccount = await nodemailer.createTestAccount();
-
     let transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      host: "smtp.elasticemail.com",
+      port: 2525,
+      secure: false,
       auth: {
-        user: process.env.GMAIL_USERNAME,
-        pass: process.env.GMAIL_PASSWORD,
+        user: process.env.HOTMAIL_USERNAME,
+        pass: process.env.HOTMAIL_PASSWORD,
       },
     });
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: '"twitee@example.com',
+      from: '"festusyuma@gmail.com',
       to,
       subject: "Welcome",
       text: "Welcome to the world of twitee",
