@@ -15,8 +15,10 @@ module.exports = async (req, res, next) => {
       if (jwtRes) {
         const user = await userRepo.findOneByEmail(jwtRes.data.email)
         const found = await jwtService.retrieveJwt(token, user.id)
+
         if (user && found) {
           req.user = user
+          req.token = token
           return next()
         }
       }

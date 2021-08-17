@@ -13,11 +13,10 @@ const jwtService = {
 
   async retrieveJwt(jwt, UserId) {
     try {
-      const token = await db.Token.findOne({where: { UserId, jwt } })
-      return !!token;
+      return await db.Token.findOne({where: {UserId, jwt}});
     } catch (e) {
       console.log(e)
-      return false
+      return null
     }
   },
 }

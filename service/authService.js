@@ -62,6 +62,21 @@ const authService = {
     async getUser(user) {
         return response.success('Successful', user)
     },
+
+    async logout(token, user) {
+        try {
+            const jtwToken = await jwtService.retrieveJwt(token, user.id)
+
+            if (jtwToken) {
+                jtwToken.expired = true
+                await jtwToken.save()
+            }
+
+            return response.success('Logged out successfully')
+        } catch (e) {
+            return response.serverError(e)
+        }
+    }
 }
 
 module.exports = authService

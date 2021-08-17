@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Token',
-    defaultValue: {
+    defaultScope: {
       where: { expired: false }
     }
   });
