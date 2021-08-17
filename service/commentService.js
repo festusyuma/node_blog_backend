@@ -11,11 +11,8 @@ const commentService = {
     try {
       const post = await postRepo.findById(id)
       if (post) {
-        const comment = await db.Comment.create({ comment: data.comment, UserId: user.id, PostId: post.id })
-        post.totalComments += 1
-        await post.save()
-
-        return response.success('Comment added successfully', comment)
+        await postRepo.addComment(data.comment, post, user)
+        return response.success('Comment added successfully')
       } else return response.badRequest('Invalid post id')
     } catch (e) {
       return response.serverError(e)
@@ -27,16 +24,7 @@ const commentService = {
       const comment = await db.Comment.findByPk(id)
       if (comment) {
         if (comment.UserId === user.id) {
-          comment.deleted = true
-          await comment.save()
-
-          const post = await comment.getPost()
-          if (post) {
-            post.totalComments -= 1
-            if (post.totalComments < 0) post.totalComments = 0
-            await post.save()
-          }
-
+          await postRepo.removeComment(comment)
           return response.success('Comment deleted successfully')
         } else return response.forbidden('You do not own this comment')
       } else return response.badRequest('Invalid comment id')
