@@ -47,6 +47,9 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       defaultScope: {
         where: { deleted: false },
+        order: [
+          ['createdAt', 'DESC']
+        ],
       },
       modelName: 'Post',
     }

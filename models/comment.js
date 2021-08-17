@@ -48,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Comment',
     defaultScope: {
       where: { deleted: false },
+      order: [
+        ['createdAt', 'DESC']
+      ],
     },
   });
   return Comment;

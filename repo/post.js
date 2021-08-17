@@ -30,9 +30,6 @@ module.exports = {
             model: db.User,
             attributes: ['id', 'name']
           },
-          order: [
-            ['createdAt', 'DESC']
-          ],
         }
       ]
     })
@@ -44,9 +41,6 @@ module.exports = {
       include: [
         { model: db.PostLike, attributes: ['UserId'] },
         { model: db.User, attributes: ['id', 'name'] },
-      ],
-      order: [
-        ['createdAt', 'DESC']
       ],
       offset: (page - 1) * perPage,
       limit: perPage
